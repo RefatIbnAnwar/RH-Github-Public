@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct RH_Github_PublicApp: App {
+struct RHGithubPublicApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

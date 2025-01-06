@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var searchText : String = ""
+    @State private var isSearchActive : Bool = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        NavigationStack {
+            VStack {
+                Divider()
+                UserListView()
+            }
+            .navigationTitle("Users")
+            .navigationBarTitleDisplayMode(.automatic)
+        }.searchable(text: $searchText,
+                     isPresented: $isSearchActive,
+                     prompt: Text("Looking for a user?"))
     }
 }
 
