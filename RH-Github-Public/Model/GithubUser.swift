@@ -16,7 +16,7 @@ struct GithubUser : Identifiable, Codable {
     let avatar_url: String
     
     static var testUser = GithubUser(id: 1,
-                                     login: "RefatIbnAnwar",
+                                     login: "RefatIbnAnwar RefatIbnAnwar",
                                      name: "Md Refat Hossain",
                                      bio: "iOS Engineer",
                                      avatar_url: "https://avatars.githubusercontent.com/u/25253823?v=4"

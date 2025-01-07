@@ -11,11 +11,13 @@ struct ContentView: View {
     
     @State private var searchText : String = ""
     @State private var isSearchActive : Bool = false
+    let userService = UserService(networkService: NetworkService())
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Divider()
-                UserListView()
+                UserListView(viewModel: UserListViewModel(userService: userService))
             }
             .navigationTitle("Users")
             .navigationBarTitleDisplayMode(.automatic)

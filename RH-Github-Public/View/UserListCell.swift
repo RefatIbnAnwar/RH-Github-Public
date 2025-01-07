@@ -30,6 +30,7 @@ struct UserListCell: View {
             }
             Text(user.login)
                 .font(.headline)
+                .lineLimit(1)
             VStack(alignment: .leading) {
                 Text(user.name ?? "")
             }

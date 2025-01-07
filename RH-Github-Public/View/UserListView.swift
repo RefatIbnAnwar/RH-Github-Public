@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct UserListView: View {
+    
+    var viewModel : UserListViewModel
+    
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-                ForEach(0..<20) { index in
-                    UserListCell(user: GithubUser.testUser)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 110))]) {
+                ForEach(viewModel.githubUserList) { githubUser in
+                    UserListCell(user: githubUser)
                         .cornerRadius(10)
-                        .foregroundColor(.blue)
                 }
             }
+        }.onAppear() {
+            viewModel.fetchUsers()
         }
     }
 }
 
 #Preview {
-    UserListView()
+    UserListView(viewModel: UserListViewModel(userService: UserService(networkService: NetworkService())))
 }
