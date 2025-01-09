@@ -9,7 +9,7 @@ struct APIConstant {
     static let environment = Environment.development
     
     static let baseUrl = environment.baseUrl
-    static let apiKey : String = "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"
+    static let apiKey : String = "my_api_key"
     
     
     static let users = "/users"
