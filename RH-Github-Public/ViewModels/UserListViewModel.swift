@@ -15,7 +15,7 @@ class UserListViewModel {
     var isLoading : Bool = false
     var errorMessage : String = ""
     private var currentPage : Int = 1
-    private var perPage : Int = 30
+    private var perPage : Int = 20
     private var userService : UserServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,6 +25,11 @@ class UserListViewModel {
     
     
     func fetchUsers() {
+        guard !isLoading else {
+            return
+        }
+        isLoading = true
+        
         userService.fetchUsers(page: currentPage, perPage: perPage)
             .sink { [weak self] complition in
                 switch complition {
@@ -33,10 +38,12 @@ class UserListViewModel {
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }
-            } receiveValue: { githubUsers in
-                self.githubUserList = githubUsers
-                print(self.githubUserList.count)
-                self.currentPage += 1
+                self?.isLoading = false
+            } receiveValue: { [weak self] githubUsers in
+                self?.githubUserList.append(contentsOf: githubUsers)
+                print(self?.githubUserList.count)
+                self?.currentPage += 1
+                print(self?.currentPage)
             }
             .store(in: &cancellables)
 
