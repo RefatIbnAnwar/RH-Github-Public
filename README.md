@@ -53,7 +53,7 @@ This project implements **MVVM** and adheres to **Clean Architecture** principle
 ## Screenshots
 
 1. **User List Screen**
-   - ![User List](Screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-01-11 at 02.13.15.png)
+   - ![User List](RH-Github-Public/Screenshots/Simulator Screenshot - iPhone 16 Pro - 2025-01-11 at 02.13.15.png)
 
 ---
 
