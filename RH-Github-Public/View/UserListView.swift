@@ -26,7 +26,7 @@ struct UserListView: View {
                 LazyVGrid(columns: threeColumnGrid, spacing: gridSpacing) {
                     ForEach(viewModel.githubUserList, id:\.id) { githubUser in
                         NavigationLink {
-                            UserDetailsView()
+                            UserDetailsView(user: githubUser)
                         } label: {
                             UserListCell(user: githubUser)
                                 .cornerRadius(10)

@@ -42,8 +42,6 @@ struct UserListCell: View {
             Color.orange.opacity(0.3)
 //                .ignoresSafeArea()
         }
-        
-        
     }
 }
 

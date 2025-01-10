@@ -15,7 +15,7 @@ class UserListViewModel {
     var isLoading : Bool = false
     var errorMessage : String = ""
     private var currentPage : Int = 1
-    private var perPage : Int = 100
+    private var perPage : Int = 100999
     private var userService : UserServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
@@ -41,9 +41,9 @@ class UserListViewModel {
                 self?.isLoading = false
             } receiveValue: { [weak self] githubUsers in
                 self?.githubUserList.append(contentsOf: githubUsers)
-                print(self?.githubUserList.count)
+                print(self?.githubUserList.count ?? 999)
                 self?.currentPage += 1
-                print(self?.currentPage)
+                print(self?.currentPage ?? 999)
             }
             .store(in: &cancellables)
 
