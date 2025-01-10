@@ -15,7 +15,7 @@ class UserListViewModel {
     var isLoading : Bool = false
     var errorMessage : String = ""
     private var currentPage : Int = 1
-    private var perPage : Int = 20
+    private var perPage : Int = 100
     private var userService : UserServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     

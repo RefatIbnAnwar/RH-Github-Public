@@ -21,21 +21,29 @@ struct UserListView: View {
     let threeColumnGrid = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: threeColumnGrid, spacing: gridSpacing) {
-                ForEach(viewModel.githubUserList, id:\.id) { githubUser in
-                    UserListCell(user: githubUser)
-                        .cornerRadius(10)
-                        .onAppear() {
-                            if githubUser.login == viewModel.githubUserList.last?.login {
-                                viewModel.fetchUsers()
-                            }
+        NavigationStack {
+            ScrollView {
+                LazyVGrid(columns: threeColumnGrid, spacing: gridSpacing) {
+                    ForEach(viewModel.githubUserList, id:\.id) { githubUser in
+                        NavigationLink {
+                            UserDetailsView()
+                        } label: {
+                            UserListCell(user: githubUser)
+                                .cornerRadius(10)
+                                .onAppear() {
+                                    //MARK:  Uncomment it if you want pagination
+//                                    if githubUser.login == viewModel.githubUserList.last?.login {
+//                                        viewModel.fetchUsers()
+//                                    }
+                                }
                         }
+
+                    }
                 }
-            }
-        }.onAppear() {
-            if viewModel.githubUserList.isEmpty {
-                viewModel.fetchUsers() // Initial data fetch
+            }.onAppear() {
+                if viewModel.githubUserList.isEmpty {
+                    viewModel.fetchUsers() // Initial data fetch
+                }
             }
         }
     }
