@@ -13,5 +13,8 @@ struct APIConstant {
     
     
     static let users = "/users"
-        
+    
+    static func repositoryList(userName: String) -> String {
+        return "/users/\(userName)/repos"
+    }
 }
