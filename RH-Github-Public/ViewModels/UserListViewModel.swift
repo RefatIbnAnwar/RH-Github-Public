@@ -13,7 +13,7 @@ class UserListViewModel {
     
     var githubUserList : [GithubUser] = []
     var isLoading : Bool = false
-    var errorMessage : String = ""
+    var errorMessage : String?
     private var currentPage : Int = 1
     private var perPage : Int = 100999
     private var userService : UserServiceProtocol

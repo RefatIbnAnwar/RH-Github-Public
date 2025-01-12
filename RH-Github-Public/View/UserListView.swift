@@ -23,22 +23,31 @@ struct UserListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: threeColumnGrid, spacing: gridSpacing) {
-                    ForEach(viewModel.githubUserList, id:\.id) { githubUser in
-                        NavigationLink {
-                            UserDetailsView(user: githubUser)
-                        } label: {
-                            UserListCell(user: githubUser)
-                                .cornerRadius(10)
-                                .onAppear() {
-                                    //MARK:  Uncomment it if you want pagination
-//                                    if githubUser.login == viewModel.githubUserList.last?.login {
-//                                        viewModel.fetchUsers()
-//                                    }
-                                }
+                if !viewModel.githubUserList.isEmpty {
+                    LazyVGrid(columns: threeColumnGrid, spacing: gridSpacing) {
+                        ForEach(viewModel.githubUserList, id:\.id) { githubUser in
+                            NavigationLink {
+                                UserDetailsView(user: githubUser, viewModel: UserDetailsViewModel(repositoryService: RepositoryService(networkService: NetworkService())))
+                            } label: {
+                                UserListCell(user: githubUser)
+                                    .cornerRadius(10)
+                                    .onAppear() {
+                                        //MARK:  Uncomment it if you want pagination
+                                        //                                    if githubUser.login == viewModel.githubUserList.last?.login {
+                                        //                                        viewModel.fetchUsers()
+                                        //                                    }
+                                    }
+                            }
                         }
-
                     }
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text("Error: \(errorMessage)")
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                } else {
+                    ProgressView("Loading...")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }.onAppear() {
                 if viewModel.githubUserList.isEmpty {
@@ -50,5 +59,5 @@ struct UserListView: View {
 }
 
 #Preview {
-    UserListView(viewModel: UserListViewModel(userService: UserService(networkService: NetworkService())))
+    UserListView(viewModel: UserListViewModel(userService: UserService()))
 }

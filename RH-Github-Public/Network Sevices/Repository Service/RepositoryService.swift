@@ -15,7 +15,7 @@ class RepositoryService : RepositoryServiceProtocol {
     
     private let networkService : NetworkServiceProtocol
     
-    init(networkService: NetworkServiceProtocol) {
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
     }
     

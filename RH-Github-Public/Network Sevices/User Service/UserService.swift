@@ -16,7 +16,7 @@ class UserService : UserServiceProtocol {
     
     private var networkService : NetworkServiceProtocol
     
-    init(networkService: NetworkServiceProtocol) {
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
     }
     

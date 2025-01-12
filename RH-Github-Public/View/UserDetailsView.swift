@@ -10,9 +10,11 @@ import SwiftUI
 struct UserDetailsView: View {
     
     private var user : GithubUser
+    private var viewModel : UserDetailsViewModel
     
-    init(user: GithubUser) {
+    init(user: GithubUser, viewModel: UserDetailsViewModel) {
         self.user = user
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -38,9 +40,12 @@ struct UserDetailsView: View {
             .foregroundColor(.secondary)
             Divider()
             ScrollView {
-                ForEach(Array(1...20) , id: \.self ) { _ in
-                    GithubRepoCellView(repository: GitHubRepository.testRepository)
+                ForEach(viewModel.repositories, id: \.id ) { repo in
+                    GithubRepoCellView(repository: repo)
                 }
+            }
+            .onAppear {
+                viewModel.fetchRepositories(for: user.login)
             }
         }
         .padding()
@@ -48,5 +53,6 @@ struct UserDetailsView: View {
 }
 
 #Preview {
-    UserDetailsView(user: GithubUser.testUser)
+    UserDetailsView(user: GithubUser.testUser,
+                    viewModel: UserDetailsViewModel(repositoryService: RepositoryService()))
 }
