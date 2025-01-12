@@ -15,7 +15,7 @@ class UserDetailsViewModel {
     var isLoading : Bool = false
     var currentPage: Int = 1
     var perPage: Int = 20
-    var errorMessage : String = ""
+    var errorMessage : String?
     
     var repositories : [GitHubRepository] = []
     

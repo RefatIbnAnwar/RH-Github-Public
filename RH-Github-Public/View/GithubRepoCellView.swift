@@ -42,7 +42,7 @@ struct GithubRepoCellView: View {
             Divider()
                 .padding(.top, 4)
         }
-        .padding()
+        
     }
 }
 

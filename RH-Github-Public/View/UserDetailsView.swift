@@ -39,16 +39,27 @@ struct UserDetailsView: View {
             .font(.caption)
             .foregroundColor(.secondary)
             Divider()
-            ScrollView {
-                ForEach(viewModel.repositories, id: \.id ) { repo in
-                    GithubRepoCellView(repository: repo)
+            
+            if !viewModel.repositories.isEmpty {
+                ScrollView {
+                    ForEach(viewModel.repositories, id: \.id ) { repo in
+                        GithubRepoCellView(repository: repo)
+                    }
                 }
-            }
-            .onAppear {
-                viewModel.fetchRepositories(for: user.login)
+            } else if let errorMessage = viewModel.errorMessage {
+                Text("Error: \(errorMessage)")
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            } else {
+                ProgressView("Loading...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .padding()
+        .onAppear {
+            viewModel.fetchRepositories(for: user.login)
+        }
     }
 }
 
